@@ -9,8 +9,7 @@ class NorthernMaintenanceModeExtension extends \Symfony\Component\HttpKernel\Dep
      */
     public function load(array $configs, \Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
-        // dd($configs);
-        $loader = new \Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, new \Symfony\Component\Config\FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new \Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, new \Symfony\Component\Config\FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
     }
 }
