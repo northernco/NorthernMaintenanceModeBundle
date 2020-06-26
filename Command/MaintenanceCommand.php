@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class MaintenanceCommand extends Command
 {
-    protected static $defaultName = 'app:maintenance';
+    protected static $defaultName = 'northern:maintenance';
 
     private $filesystem;
 
