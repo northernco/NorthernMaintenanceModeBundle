@@ -2,14 +2,19 @@
 
 namespace Northern\MaintenanceModeBundle\DependencyInjection;
 
-class NorthernMaintenanceModeExtension extends \Symfony\Component\HttpKernel\DependencyInjection\Extension
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+
+class NorthernMaintenanceModeExtension extends Extension
 {
     /**
      * @inheritDoc
      */
-    public function load(array $configs, \Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new \Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, new \Symfony\Component\Config\FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
     }
 }
