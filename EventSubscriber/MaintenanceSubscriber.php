@@ -18,17 +18,28 @@ class MaintenanceSubscriber implements EventSubscriberInterface
 
     private $twig;
 
-    public function __construct(KernelInterface $kernel, Filesystem $filesystem, Environment $twig)
-    {
+    private $flagPath;
+
+    private $retryAfter;
+
+    public function __construct(
+        KernelInterface $kernel,
+        Filesystem $filesystem,
+        Environment $twig,
+        string $flagPath,
+        int $retryAfter
+    ) {
         $this->kernel     = $kernel;
         $this->filesystem = $filesystem;
         $this->twig       = $twig;
+        $this->flagPath   = $flagPath;
+        $this->retryAfter = $retryAfter;
     }
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if ($this->filesystem->exists($this->kernel->getProjectDir() . '/var/maintenance.flag')) {
-            $event->setResponse(new Response($this->twig->render('@NorthernMaintenanceMode/maintenance.html.twig'), 503, ['Retry-After' => 300]));
+        if ($this->filesystem->exists($this->flagPath)) {
+            $event->setResponse(new Response($this->twig->render('@NorthernMaintenanceMode/maintenance.html.twig'), 503, ['Retry-After' => $this->retryAfter]));
         }
     }
 

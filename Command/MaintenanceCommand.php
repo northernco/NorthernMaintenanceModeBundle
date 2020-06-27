@@ -18,12 +18,19 @@ class MaintenanceCommand extends Command
 
     private $kernel;
 
-    public function __construct(KernelInterface $kernel, Filesystem $filesystem, string $name = null)
-    {
+    private $flagPath;
+
+    public function __construct(
+        KernelInterface $kernel,
+        Filesystem $filesystem,
+        string $flagPath,
+        string $name = null
+    ) {
         parent::__construct($name);
 
         $this->kernel     = $kernel;
         $this->filesystem = $filesystem;
+        $this->flagPath   = $flagPath;
     }
 
     protected function configure()
@@ -46,12 +53,10 @@ class MaintenanceCommand extends Command
             return 1;
         }
 
-        $path = $this->kernel->getProjectDir() . '/var/maintenance.flag';
-
         if ($enable) {
-            $this->filesystem->touch($path);
+            $this->filesystem->touch($this->flagPath);
         } else {
-            $this->filesystem->remove($path);
+            $this->filesystem->remove($this->flagPath);
         }
 
         $io->success($enable ? 'Maintenance mode enabled' : 'Maintenance mode disabled');

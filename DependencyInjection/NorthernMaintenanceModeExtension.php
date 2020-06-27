@@ -16,5 +16,15 @@ class NorthernMaintenanceModeExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $configuration = new Configuration();
+        $config        = $this->processConfiguration($configuration, $configs);
+
+        $maintenanceCommandDefinition = $container->getDefinition('northern_maintenance_mode.command.maintenance_command');
+        $maintenanceCommandDefinition->setArgument('$flagPath', $config['maintenance_flag_path']);
+
+        $maintenanceSubscriberDefinition = $container->getDefinition('northern_maintenance_mode.event_subscriber.maintenance_subscriber');
+        $maintenanceSubscriberDefinition->setArgument('$flagPath', $config['maintenance_flag_path'])
+                                        ->setArgument('$retryAfter', $config['retry_after']);
     }
 }
