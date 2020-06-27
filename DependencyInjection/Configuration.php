@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
                     ->integerNode('retry_after')
                     ->info('This is how long (in milliseconds) the user agent should wait before making a follow-up request.')
                     ->defaultValue(300)
+                    ->min(0)
                     ->end()
                     ->end();
 
