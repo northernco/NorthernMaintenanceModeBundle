@@ -16,19 +16,15 @@ class MaintenanceCommand extends Command
 
     private $filesystem;
 
-    private $kernel;
-
     private $flagPath;
 
     public function __construct(
-        KernelInterface $kernel,
         Filesystem $filesystem,
         string $flagPath,
         string $name = null
     ) {
         parent::__construct($name);
 
-        $this->kernel     = $kernel;
         $this->filesystem = $filesystem;
         $this->flagPath   = $flagPath;
     }

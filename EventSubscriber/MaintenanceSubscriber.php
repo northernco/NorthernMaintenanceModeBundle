@@ -12,8 +12,6 @@ use Twig\Environment;
 
 class MaintenanceSubscriber implements EventSubscriberInterface
 {
-    private $kernel;
-
     private $filesystem;
 
     private $twig;
@@ -23,13 +21,11 @@ class MaintenanceSubscriber implements EventSubscriberInterface
     private $retryAfter;
 
     public function __construct(
-        KernelInterface $kernel,
         Filesystem $filesystem,
         Environment $twig,
         string $flagPath,
         int $retryAfter
     ) {
-        $this->kernel     = $kernel;
         $this->filesystem = $filesystem;
         $this->twig       = $twig;
         $this->flagPath   = $flagPath;
