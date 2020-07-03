@@ -1,6 +1,6 @@
 {
     "name": "northernco/maintenance-mode-bundle",
-    "description": "Symfony bundle for including enabling and disabling maintenance mode",
+    "description": "Symfony bundle for enabling and disabling maintenance mode",
     "type": "symfony-bundle",
     "require": {
         "php": "^7.2",
