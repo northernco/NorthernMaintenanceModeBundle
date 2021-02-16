@@ -3,7 +3,7 @@
     "description": "Symfony bundle for enabling and disabling maintenance mode",
     "type": "symfony-bundle",
     "require": {
-        "php": "^7.2",
+        "php": ">=7.2.5",
         "symfony/config": "^4.0|^5.0",
         "symfony/dependency-injection": "^4.0|^5.0",
         "symfony/framework-bundle": "^4.0|^5.0",
