@@ -7,18 +7,17 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
 class MaintenanceSubscriber implements EventSubscriberInterface
 {
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    private $twig;
+    private Environment $twig;
 
-    private $flagPath;
+    private string $flagPath;
 
-    private $retryAfter;
+    private int $retryAfter;
 
     public function __construct(
         Filesystem $filesystem,
@@ -39,10 +38,7 @@ class MaintenanceSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => 'onKernelRequest',
