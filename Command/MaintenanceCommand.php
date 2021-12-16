@@ -8,15 +8,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class MaintenanceCommand extends Command
 {
     protected static $defaultName = 'northern:maintenance';
 
-    private $filesystem;
+    protected static $defaultDescription = 'Toggle maintenance mode';
 
-    private $flagPath;
+    private Filesystem $filesystem;
+
+    private string $flagPath;
 
     public function __construct(
         Filesystem $filesystem,
@@ -31,8 +32,7 @@ class MaintenanceCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Toggle maintenance mode')
-             ->addOption('enable', null, InputOption::VALUE_NONE, 'Enable maintenance mode')
+        $this->addOption('enable', null, InputOption::VALUE_NONE, 'Enable maintenance mode')
              ->addOption('disable', null, InputOption::VALUE_NONE, 'Disable maintenance mode');
     }
 
@@ -46,7 +46,7 @@ class MaintenanceCommand extends Command
         if ($enable === $disable) {
             $io->error($enable ? 'Cannot enable and disable maintenance mode at the same time' : 'You must either enable or disable maintenance mode');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         if ($enable) {
@@ -57,6 +57,6 @@ class MaintenanceCommand extends Command
 
         $io->success($enable ? 'Maintenance mode enabled' : 'Maintenance mode disabled');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
