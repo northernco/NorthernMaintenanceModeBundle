@@ -34,7 +34,7 @@ class MaintenanceSubscriber implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event): void
     {
         if ($this->filesystem->exists($this->flagPath)) {
-            $event->setResponse(new Response($this->twig->render('@NorthernMaintenanceMode/maintenance.html.twig'), 503, ['Retry-After' => $this->retryAfter]));
+            $event->setResponse(new Response($this->twig->render('@NorthernMaintenanceMode/maintenance.html.twig'), Response::HTTP_SERVICE_UNAVAILABLE, ['Retry-After' => $this->retryAfter]));
         }
     }
 
