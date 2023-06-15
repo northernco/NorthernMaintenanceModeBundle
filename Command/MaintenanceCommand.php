@@ -31,7 +31,7 @@ class MaintenanceCommand extends Command
         $this->flagPath   = $flagPath;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addOption('enable', null, InputOption::VALUE_NONE, 'Enable maintenance mode')
              ->addOption('disable', null, InputOption::VALUE_NONE, 'Disable maintenance mode');
