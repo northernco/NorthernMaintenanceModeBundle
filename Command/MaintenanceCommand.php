@@ -23,7 +23,7 @@ class MaintenanceCommand extends Command
     public function __construct(
         Filesystem $filesystem,
         string $flagPath,
-        string $name = null
+        ?string $name = null
     ) {
         parent::__construct($name);
 
